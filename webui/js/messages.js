@@ -90,6 +90,10 @@ export function _drawMessage(
 
   if (heading) {
     const headingElement = document.createElement("h4");
+  
+    // Replace Agent 0 with TKLABEL AGENT here as a final override
+    heading = heading.replace(/^Agent 0:/, "TKLABEL AGENT:");
+  
     headingElement.textContent = heading;
     messageDiv.appendChild(headingElement);
   }

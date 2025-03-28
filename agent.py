@@ -237,7 +237,9 @@ class Agent:
 
         # non-config vars
         self.number = number
-        self.agent_name = f"Agent {self.number}"
+        # self.agent_name = f"Agent {self.number}"
+        self.agent_name = "TKLABEL AGENT" if self.number == 0 else f"Agent {self.number}"
+
 
         self.history = history.History(self)
         self.last_user_message: history.Message | None = None
