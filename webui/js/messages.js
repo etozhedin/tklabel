@@ -1,6 +1,9 @@
 // copy button
 import { openImageModal } from "./image_modal.js";
 
+const MAX_VISIBLE_CHARS = 500; // Adjust as needed
+
+
 function createCopyButton() {
   const button = document.createElement("button");
   button.className = "copy-button";
@@ -101,14 +104,53 @@ export function _drawMessage(
   drawKvps(messageDiv, kvps, latex);
 
   if (content && content.trim().length > 0) {
-    const preElement = document.createElement("pre");
+    const preElement = document.createElement("pre"); //jin
     preElement.classList.add("msg-content", ...contentClasses);
+
+
     preElement.style.whiteSpace = "pre-wrap";
     preElement.style.wordBreak = "break-word";
 
     const spanElement = document.createElement("span");
-    spanElement.innerHTML = convertHTML(content);
+    // spanElement.innerHTML = convertHTML(content); //jin
+    const fullText = convertHTML(content);
 
+    if (fullText.length > MAX_VISIBLE_CHARS) {
+      const shortText = fullText.slice(0, MAX_VISIBLE_CHARS);
+    
+      const shortSpan = document.createElement("span");
+      shortSpan.innerHTML = shortText + "... ";
+      
+      const toggleBtn = document.createElement("a");
+      toggleBtn.href = "#";
+      toggleBtn.textContent = "Show more";
+      toggleBtn.style.marginLeft = "5px";
+    
+      toggleBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const showingFull = spanElement.innerHTML === fullText;
+    
+        spanElement.innerHTML = showingFull
+          ? shortText + "... "
+          : fullText;
+    
+        toggleBtn.textContent = showingFull ? "Show more" : "Show less";
+    
+        if (!showingFull && window.renderMathInElement && latex) {
+          renderMathInElement(spanElement, {
+            delimiters: [{ left: "$", right: "$", display: true }],
+            throwOnError: false,
+          });
+        }
+      });
+    
+      spanElement.appendChild(shortSpan);
+      spanElement.appendChild(toggleBtn);
+    } else {
+      spanElement.innerHTML = fullText;
+    }
+    
+    
     // Add click handler for small screens
     spanElement.addEventListener("click", () => {
       copyText(spanElement.textContent, spanElement);

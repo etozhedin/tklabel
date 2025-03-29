@@ -1,4 +1,4 @@
-# docker/run/agent-zero
+docker/run/agent-zero
 
 # Ignore common unwanted files globally
 **/.DS_Store

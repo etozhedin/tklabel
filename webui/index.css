@@ -2096,3 +2096,15 @@ a:active {
 [x-cloak] {
     display: none !important;
 }
+
+
+.copy-button {
+  margin-left: 10px;
+}
+
+.msg-content a {
+  color: var(--primary-color, #0066cc);
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
