@@ -3,6 +3,6 @@ services:
     container_name: agent-zero-local
     image: agent-zero-run:testing
     volumes:
-      - ./agent-zero:/a0
+      - ./agent-zero:/agent-zero
     ports:
       - "50080:80"
