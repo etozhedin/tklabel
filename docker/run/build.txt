@@ -1,6 +1,8 @@
 # local image with smart cache
 docker build -t agent-zero-run:local --build-arg BRANCH=development --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S)  .
 
+docker build -t agent-zero-run:testing --build-arg BRANCH=main --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S)  .
+
 # local image without cache
 docker build -t agent-zero-run:local --build-arg BRANCH=development --no-cache  .
 
